@@ -47,7 +47,6 @@ vagrant up
 vagrant global-status
 ```
 
-
 > **NOTE:** 
 > - Since its a multiple VMs setup, the installation will take times 
 > - All the VMs hostname and /etc/host file will be automatically updated
