@@ -9,7 +9,6 @@ This setup instruction based on `https://github.com/syahir-37/vprofile.git` repo
 If you want to create new project, use *create-new* folder setup instead of *clone* folder that use `git-clone` on repo.
 
 
-
 ## **PREREQUISITE:**
 
 1. virtualbox

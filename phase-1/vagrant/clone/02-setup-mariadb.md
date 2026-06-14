@@ -23,15 +23,11 @@ ping -c 3 mc01
 ::1         localhost localhost.localdomain localhost6 localhost6.localdomain6
 
 ## vagrant-hostmanager-start
-192.168.56.10	db01
-
-192.168.56.11	mc01
-
-192.168.56.12	rmq01
-
-192.168.56.13	app01
-
-192.168.56.14   web01
+192.168.56.15   db01
+192.168.56.14   mc01
+192.168.56.13   rmq01
+192.168.56.12   app01
+192.168.56.11   web01
 ## vagrant-hostmanager-end
 ```
 
@@ -113,11 +109,11 @@ cd vprofile
 ls -la src/main/resources/db_backup.sql
 
 # Restore database
-mysql -u root -padmin123 accounts < src/main/resources/db_backup.sql
+sudo mysql -u root -padmin123 accounts < src/main/resources/db_backup.sql
 
 # Verify the restore was successful
-mysql -u root -padmin123 accounts -e "SHOW TABLES;"
-mysql -u root -padmin123 accounts -e "SELECT COUNT(*) FROM user;"
+sudo mysql -u root -padmin123 accounts -e "SHOW TABLES;"
+sudo mysql -u root -padmin123 accounts -e "SELECT COUNT(*) FROM user;"
 ```
 
 **10. Starting the firewall and allowing the mariadb to access from port no. 3306**
