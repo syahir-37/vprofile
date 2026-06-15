@@ -2,24 +2,29 @@
 
 ## **ABOUT**
 
-In the phase-1, we will learn to **setup java web app project on local** using multi tier web app architecture. This setup will be do in manually first, then provision it for second time to board more learning expericence.
+In Phase-1, you'll learn to set up a Java web application using multi-tier architecture. You'll do everything manually first, then automate it with provisioning scripts.
 
-This setup instruction based on `https://github.com/syahir-37/vprofile.git` repo that all ready made application, just need to follow along for learning purpose. 
-
-If you want to create new project, use *create-new* folder setup instead of *clone* folder that use `git-clone` on repo.
-
+**Repository structure:**
+| Directory | What It's For |
+|-----------|---------------|
+| clone/ | Follow along with ready-made setup |
+| create-new/ | Build everything from scratch |
+| provision/ | Automated setup script |
+ 
+---    
 
 ## **PREREQUISITE:**
 
 1. virtualbox
 2. vagrant
-3. setup git branch:
+3. setup git branch on project repo/clone:
 ```bash
-git checkout -b phase1
+git checkout -b phase-1
 ```
 
+---
 
-## **SETUP SHOULD BE DONE FOLLOWING ORDER:**
+## **SERVICE DEPENDENCIES:**
 
 **DEPENDENCIES:**
   Tomcat needs: MySQL, Memcached, RabbitMQ
@@ -35,7 +40,7 @@ git checkout -b phase1
 
 **SERVICES START ORDER:**
 1. MySQL
-2. Memcached  
+2. Memcached 
 3. RabbitMQ
 4. Tomcat
 5. Nginx
@@ -47,27 +52,29 @@ git checkout -b phase1
 4. Memcached
 5. MySQL
 
+---
   
 ## **LEARNING INSTRUCTION**
 
-1. Manually:
-    - follow along the setup files in *phase-1/vagrant/* step-by-step.
-    - check if setup files is still valid instruction with the update VMs
+**1. Manual Setup**
+- Follow setup files in phase-1/vagrant/ step by step
+- Verify all instructions work with current VM versions
 
-2. Provision:
-    - do the manually setup first, then update the setup files
-    - create the provision (.sh) files based on the setup files one-by-one
+**2. Provisioning**
+- Complete manual setup first
+- Create .sh automation scripts based on your manual steps
 
-3. Make another file with name *docs-learning.md*, the contents in that file following the section bellow (at least).
+**3. Documentation**
+- Create docs-learning.md with:
+```markdown
+## Objective Learning
+- What I learned today:
+  1. 
+  2. 
+  3. 
 
-    - **Objective learning**: new knowledge report
-        1. 
-        2. 
-        3. 
-        
-    - **Problems and solving**: problem occures and make docs. about it:
-        1. 
-        2. 
-        3. 
-        
-        
+## Problems & Solutions
+- Problem 1: [Issue] → [How I fixed it]
+- Problem 2: [Issue] → [How I fixed it]
+- Problem 3: [Issue] → [How I fixed it]
+```
