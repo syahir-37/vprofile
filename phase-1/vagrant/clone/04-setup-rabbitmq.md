@@ -47,7 +47,7 @@ sudo dnf install epel-release -y
 curl -s https://packagecloud.io/install/repositories/rabbitmq/rabbitmq-server/script.rpm.sh | sudo bash 
 
 # Install and enable the service
-sudo dnf install rabbitmq-server -y && 
+sudo dnf install rabbitmq-server -y 
 sudo systemctl enable --now rabbitmq-server
 
 # Check if installation worked:
