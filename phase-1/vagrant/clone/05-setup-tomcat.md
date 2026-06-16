@@ -98,31 +98,6 @@ Restart=always
 WantedBy=multi-user.target
 ```
 
-**Optional**
-```ini
-[Unit]
-Description=Tomcat Server
-After=network.target
-
-[Service]
-Type=forking
-User=tomcat
-Group=tomcat
-WorkingDirectory=/usr/local/tomcat
-Environment="JAVA_HOME=/usr/lib/jvm/java-17-openjdk-17.0.19.0.10-2.el9_7.x86_64"
-Environment="CATALINA_PID=/usr/local/tomcat/temp/tomcat.pid"
-Environment="CATALINA_HOME=/usr/local/tomcat"
-Environment="CATALINA_BASE=/usr/local/tomcat"
-ExecStart=/usr/local/tomcat/bin/startup.sh
-ExecStop=/usr/local/tomcat/bin/shutdown.sh
-RestartSec=10
-Restart=on-failure
-TimeoutSec=300
-
-[Install]
-WantedBy=multi-user.target
-```
-
 ```bash
 # 3. Reload systemd file
 sudo systemctl daemon-reload
