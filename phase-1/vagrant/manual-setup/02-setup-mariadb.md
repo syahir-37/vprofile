@@ -1,7 +1,5 @@
 
 
-
-
 ## **MARIADB SETUP**
 
 **1. Login to the db vm**
@@ -19,21 +17,17 @@ ping -c 3 app01
 ping -c 3 mc01
 ```
 
-**Its should be like this or edit be like this:**
+Its should look like this or edit it look like this:
 ```yaml
 127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4
 ::1         localhost localhost.localdomain localhost6 localhost6.localdomain6
 
 ## vagrant-hostmanager-start
-192.168.56.10	db01
-
-192.168.56.11	mc01
-
-192.168.56.12	rmq01
-
-192.168.56.13	app01
-
-192.168.56.14   web01
+192.168.56.15   db01
+192.168.56.14   mc01
+192.168.56.13   rmq01
+192.168.56.12   app01
+192.168.56.11   web01
 ## vagrant-hostmanager-end
 ```
 
@@ -104,16 +98,22 @@ SELECT User, Host FROM mysql.user WHERE User='admin';
 EXIT;
 ```
 
-**9. Create db backup file and Verify**
+**9. Download Source code & Initialize Database.**
 ```bash
-# create the 
+# Download source code
+cd /tmp/
+git clone https://github.com/syahir-37/vprofile.git
+cd vprofile
+
+# Check if db_backup.sql exists
+ls -la src/main/resources/db_backup.sql
 
 # Restore database
-mysql -u root -p accounts < src/main/resources/db_backup.sql
+sudo mysql -u root -padmin123 accounts < src/main/resources/db_backup.sql
 
 # Verify the restore was successful
-mysql -u root -p accounts -e "SHOW TABLES;"
-mysql -u root -p accounts -e "SELECT COUNT(*) FROM user;"
+sudo mysql -u root -padmin123 accounts -e "SHOW TABLES;"
+sudo mysql -u root -padmin123 accounts -e "SELECT COUNT(*) FROM user;"
 ```
 
 **10. Starting the firewall and allowing the mariadb to access from port no. 3306**

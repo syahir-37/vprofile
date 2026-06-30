@@ -1,33 +1,6 @@
 
 
-# **SUBJECT NOTES:**
-
-1. Setup lab: vagrant
-    - virtualbox installation.
-    - vagrant installation.
-    - vagrant setup: init, validate, global-status, box, plugin.
-    - vagrantfile setup: provision, config, box, provider, network, synced_folder.
-    
-2. Mariadb setup: 
-    - `sudo mysql -u root -padmin123`: security risk, not best practice.
-    - `sudo mysql -u root -p`: prompt the password, prompt create the database.
-    - `sudo mysql -u root <<EOF contents EOF`: good for provision, make sure commands create database follow the provision needed.
-    - `sudo mysql -u root -p accounts >> db_backup.sql`:  create backup file for DB 
-
-3. Memcache setup:
-    - ``
-
-4. Java-web-app with maven setup:
-```bash
-# Create standard Maven structure
-mkdir -p src/main/java/com/example/servlets
-mkdir -p src/main/resources
-mkdir -p src/main/webapp/WEB-INF
-mkdir -p src/test/java/com/example
-```
----
-
-# **PROBLEM AND SOLVING**
+# **PROBLEMS AND SOLVING PROGRESS**
 
 ## **1. Vagrantfile: box default providers not working with my local vagrant.**
 
@@ -110,7 +83,7 @@ sudo systemctl restart rabbitmq-server
 
 **Update:**
 ```bash
-5. Install Dependencies
+# 5. Install Dependencies
 # Download official RabbbitMQ
 curl -s https://packagecloud.io/install/repositories/rabbitmq/rabbitmq-server/script.rpm.sh | sudo bash 
 # Install and enable the service
@@ -173,6 +146,47 @@ curl http://localhost:8080
 
 ```
 
+---
 
+## **5. Vagrant Automation: Vagrant was unable to mount VirtualBox shared folders.**
 
+### **Issue**
 
+- local machine using archlinux known for its cutting edge OS, update the OS make vboxsf dependencies resulting failed and need for another kernel version for virtualbox work properly.
+- Since vagrant using virtualbox to build nodes, the script and manual activation resulted failed to connect to another nodes for shared folder because of vboxsf.
+
+### **Solution**
+- install `vagrant plugin install vagrant-vbguest`, its auto download the dependencies for vboxsf on our nodes vagrant machines. 
+
+```bash
+# Install the plugin
+vagrant plugin install vagrant-vbguest
+
+# Restart the nodes to apply the installation
+vagrant reload --provision
+
+# If the error ask about update kernel for vbguest, then apply the comment bellow.
+# In your Vagrantfile, add this line before your VM configurations
+config.vbguest.auto_update = false
+# this error accure when your system already solve (update) the mount virtualbox problem without needed plugin
+````
+
+---
+
+## **6. Vagrantfile: Testing web01 server after setup but cant open on local browser**
+
+### **Issue**
+
+- clone file not provide the forward port guest on Vagrantfile
+- When testing the website setup build on vagrant nodes, vagrant currently using ***vm environment*** network guest port. 
+- vagrant need to forward the vm-guest-port:8080 to local-machine-host:8080 to use GUI browser for testing.
+
+### **Solution**
+
+- added forward port from guest to host on Vagrantfile on web01 section.
+
+```bash
+# Vagrantfle: web01 section
+# ADD THIS LINE - Forward port 8080 from VM to host
+web01.vm.network "forwarded_port", guest: 8080, host: 8080
+```

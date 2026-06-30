@@ -7,9 +7,8 @@ In Phase-1, you'll learn to set up a Java web application using multi-tier archi
 **Repository structure:**
 | Directory | What It's For |
 |-----------|---------------|
-| clone/ | Follow along with ready-made setup |
-| create-new/ | Build everything from scratch |
-| provision/ | Automated setup script |
+| manual-setup/ | Follow along with ready-made setup |
+| provision-setup/ | Automated setup script |
  
 ---    
 
@@ -17,7 +16,7 @@ In Phase-1, you'll learn to set up a Java web application using multi-tier archi
 
 1. virtualbox
 2. vagrant
-3. setup git branch on project repo/clone:
+3. setup git branch vprofile/:
 ```bash
 git checkout -b phase-1
 ```
@@ -57,7 +56,7 @@ git checkout -b phase-1
 ## **LEARNING INSTRUCTION**
 
 **1. Manual Setup**
-- Follow setup files in phase-1/vagrant/ step by step
+- Follow setup files in phase-1/vagrant/manual/ step by step
 - Verify all instructions work with current VM versions
 
 **2. Provisioning**
