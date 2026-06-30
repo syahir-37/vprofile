@@ -98,6 +98,7 @@ Restart=always
 WantedBy=multi-user.target
 ```
 
+<<<<<<< HEAD
 **Optional**
 ```ini
 [Unit]
@@ -123,6 +124,8 @@ TimeoutSec=300
 WantedBy=multi-user.target
 ```
 
+=======
+>>>>>>> fce31f84a81fdc618fbe7ee49c2fe819ffe4c658
 ```bash
 # 3. Reload systemd file
 sudo systemctl daemon-reload
