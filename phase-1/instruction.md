@@ -26,9 +26,9 @@ git checkout -b phase-1
 ## **SERVICE DEPENDENCIES:**
 
 **DEPENDENCIES:**
-  Tomcat needs: MySQL, Memcached, RabbitMQ
-  Nginx needs: Tomcat
-  Others: No dependencies
+- Tomcat needs: MySQL, Memcached, RabbitMQ
+- Nginx needs: Tomcat
+- Others: No dependencies
 
 **SETUP ORDER**
 1. MySQL
@@ -56,22 +56,17 @@ git checkout -b phase-1
 ## **LEARNING INSTRUCTION**
 
 **1. Manual Setup**
-- Follow setup files in phase-1/vagrant/manual/ step by step
-- Verify all instructions work with current VM versions
+- Follow setup files in phase-1/vagrant/manual-setup/ step by step
+- Verify all setup files work with current VM versions
 
 **2. Provisioning**
 - Complete manual setup first
-- Create .sh automation scripts based on your manual steps
+- Create start and stop script for server
+- Create automation installation scripts based on your manual steps
 
 **3. Documentation**
 - Create docs-learning.md with:
 ```markdown
-## Objective Learning
-- What I learned today:
-  1. 
-  2. 
-  3. 
-
 ## Problems & Solutions
 - Problem 1: [Issue] → [How I fixed it]
 - Problem 2: [Issue] → [How I fixed it]
