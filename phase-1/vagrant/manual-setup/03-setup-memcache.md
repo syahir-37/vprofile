@@ -53,7 +53,7 @@ sudo systemctl status memcached
 **5. Edit the _sysconfig_ file**
 ```bash
 # 1. Edit IPv6 to IPv4 0.0.0.0 on /etc/sysconfig/memcached 
-sudo sed -i 's/-l 127.0.0.1,::1/-l 0.0.0.0/g' /etc/sysconfig/memcached
+sudo sed -i 's/127.0.0.1/0.0.0.0/g' /etc/sysconfig/memcached
 
 # 2. Restart the memcache service
 sudo systemctl restart memcached

@@ -92,8 +92,7 @@ Environment=CATALINA_HOME=/usr/local/tomcat
 Environment=CATALINE_BASE=/usr/local/tomcat
 ExecStart=/usr/local/tomcat/bin/catalina.sh run
 ExecStop=/usr/local/tomcat/bin/shutdown.sh
-RestartSec=10
-Restart=always
+Restart=on-failure
 [Install]
 WantedBy=multi-user.target
 ```

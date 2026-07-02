@@ -5,12 +5,10 @@
 ## **1. Vagrantfile: box default providers not working with my local vagrant.**
 
 ### **Issue**
-
 - In clone file project (OG file), the vagrant box provider no longer maintained and supported
 - Changing the *Vagrantfile* box provider manually with another provider.
 
 ### **Solution**
-
 - Go to [hashicorp.com](https://portal.cloud.hashicorp.com/vagrant/discover) for more info about the box.
 
 ```bash
@@ -32,12 +30,10 @@ db01.config.box = "bento/rockylinux-9"
 ## **2. Memcache server (mc01): change config from IPv6 to IPv4 0.0.0.0 broadcast.**
 
 ### **Issue**
-
 - When installed mamcache server, the /etc/sysconfig/cached config file come with default _OPTION="-l 127.0.0.1,::1"_ which is local and IPv6 ready.
-- we want the config be abel to comunicate using broadcast 0.0.0.0 and close IPv6 option.
+- we want the config be abel to comunicate using broadcast 0.0.0.0.
 
 ### **Solution**
-
 - using `sed -i` command to change the config file
 - memcached server config file: /etc/sysconfig/memcached
 
@@ -47,7 +43,7 @@ cat /etc/sysconfig/memcached
 # Output: OPTIONS="-l 127.0.0.1,::1"
 
 # 2. Change IPv4 localhost to broadcast address
-sudo sed -i 's/-l 127.0.0.1,::1/-l 0.0.0.0/g' /etc/sysconfig/memcached
+sudo sed -i 's/127.0.0.1/0.0.0.0/g' /etc/sysconfig/memcached
 # This replaces the text in the file
 
 # 3. Restart to apply changes
@@ -60,7 +56,6 @@ sudo systemctl restart memcached
 ## **3. RabbitMQ server (rmq01): Update clone old file installation**
 
 ### **Issue**
-
 - Update clone old file using old method installing RabbitMQ
 
 **Old file:**
@@ -80,7 +75,6 @@ sudo systemctl restart rabbitmq-server
 ```
 
 ### **Solution**
-
 **Update:**
 ```bash
 # 5. Install Dependencies
@@ -118,12 +112,10 @@ sudo systemctl restart rabbitmq-server
 ## **4.Tomcat server (app01): Mistake installed apps in wrong order**
 
 ### **Issue**
-
 - for tomcat to works properly, we need install java jdk first for its dependencies.
 - but im doing tomcat installation first then java jdk
 
 ### **Solution**
-
 - this is how im fix the path in tomcat config file 
 
 ```bash
@@ -151,7 +143,6 @@ curl http://localhost:8080
 ## **5. Vagrant Automation: Vagrant was unable to mount VirtualBox shared folders.**
 
 ### **Issue**
-
 - local machine using archlinux known for its cutting edge OS, update the OS make vboxsf dependencies resulting failed and need for another kernel version for virtualbox work properly.
 - Since vagrant using virtualbox to build nodes, the script and manual activation resulted failed to connect to another nodes for shared folder because of vboxsf.
 
@@ -176,17 +167,47 @@ config.vbguest.auto_update = false
 ## **6. Vagrantfile: Testing web01 server after setup but cant open on local browser**
 
 ### **Issue**
-
 - clone file not provide the forward port guest on Vagrantfile
 - When testing the website setup build on vagrant nodes, vagrant currently using ***vm environment*** network guest port. 
 - vagrant need to forward the vm-guest-port:8080 to local-machine-host:8080 to use GUI browser for testing.
 
 ### **Solution**
-
 - added forward port from guest to host on Vagrantfile on web01 section.
 
 ```bash
 # Vagrantfle: web01 section
 # ADD THIS LINE - Forward port 8080 from VM to host
 web01.vm.network "forwarded_port", guest: 8080, host: 8080
+```
+
+---
+
+## **7. Configuration Firewall: Old commands to the modern commands**
+
+### **Issue**
+- in the clone files, its using old commands to configure the firewall
+
+```bash
+firewall-cmd --add-port=11211/tcp
+firewall-cmd --runtime-to-permanent
+firewall-cmd --add-port=11111/udp
+firewall-cmd --runtime-to-permanent
+sudo memcached -p 11211 -U 11111 -u memcached -d
+```
+
+### **Solution**
+- fix it with new modern style
+
+```bash
+sudo systemctl start firewalld
+sudo systemctl enable firewalld
+sudo firewall-cmd --add-port=11211/tcp --permanent
+sudo firewall-cmd --add-port=11111/udp --permanent
+sudo firewall-cmd --reload
+
+# varification firewall
+sudo firewall-cmd --list-ports
+
+# specific parameter: allowing port 11211 access memcached
+sudo memcached -p 11211 -U 11111 -u memcached -d
 ```
