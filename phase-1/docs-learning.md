@@ -211,3 +211,23 @@ sudo firewall-cmd --list-ports
 # specific parameter: allowing port 11211 access memcached
 sudo memcached -p 11211 -U 11111 -u memcached -d
 ```
+
+---
+
+## **8. Learning Hardway: wasted time on dependencies of previouse VMs**
+
+### **Issue**
+- For the first time setup of vagrant, its hardly got any issue except setup virtualbox with the local OS.
+- but when try to renew the projects setup box, plugin, and vbguest. Its take many times error and its hurt the purpose of automate to make it fast and more clean.
+- Its take time almost 2 weeks learning the error. 
+
+### **Solution**
+- Its more wise to reset the vagrant with deleting the `~/.vagrant.d/` file to start new.
+- `~/.vagrant.d/` conntain box, plugin and etc about vagrant. 
+
+```bash
+# deleting vagrant dependencies if want renew installing vms (multi-tier application).
+sudo rm -rf ~/.vagrant.d/
+
+# then start again install plugin (vagrant-hostmanager) and `vagrant up db01`
+```

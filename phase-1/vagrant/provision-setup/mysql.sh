@@ -12,12 +12,12 @@ echo "    Update and install tools"
 echo "======================================="
 echo ""
 # Update and prep
-sudo dnf update -y
-sudo dnf install epel-release -y
+sudo yum update -y
+sudo yum install epel-release -y
 
 # Install tools
-sudo dnf install git zip unzip -y
-sudo dnf install mariadb-server -y
+sudo yum install git zip unzip -y
+sudo yum install mariadb-server -y
 
 echo ""
 echo "==============================================="
@@ -72,3 +72,4 @@ sudo firewall-cmd --zone=public --add-port=3306/tcp --permanent
 sudo firewall-cmd --reload
 sudo systemctl restart mariadb
 
+echo "############# FINISH SCRIPT ##############"
