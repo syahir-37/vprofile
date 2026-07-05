@@ -7,9 +7,15 @@ echo "===================================================="
 echo "           Update, Install EPEL and memcached"
 echo "===================================================="
 echo ""
-sudo dnf update -y
-sudo dnf install epel-release -y
-sudo dnf install memcached -y
+sudo yum install epel-release -y
+sudo yum install memcached -y
+
+echo ""
+echo "===================================================="
+echo "       Configure to listen on all interfaces"
+echo "===================================================="
+echo ""
+sudo sed -i 's/-l 127.0.0.1,::1/-l 0.0.0.0/g' /etc/sysconfig/memcached
 
 echo ""
 echo "===================================================="
@@ -24,15 +30,6 @@ echo "+++++++++ memcached status ++++++++++"
 sudo systemctl status memcached --no-pager
 sleep 3
 
-echo ""
-echo "===================================================="
-echo "       Configure to listen on all interfaces"
-echo "===================================================="
-echo ""
-sudo sed -i 's/127.0.0.1/0.0.0.0/g' /etc/sysconfig/memcached
-
-# Restart to apply changes
-sudo systemctl restart memcached
 
 echo ""
 echo "===================================================="
@@ -55,3 +52,5 @@ sudo memcached -p 11211 -U 11111 -u memcached -d
 echo "++++++++++ memcached status +++++++++++"
 sudo systemctl status memcached --no-pager
 sleep 3
+
+echo "############# FINISH SCRIPT ##############"

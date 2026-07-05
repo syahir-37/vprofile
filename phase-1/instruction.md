@@ -66,9 +66,29 @@ git checkout -b phase-1
 
 **3. Documentation**
 - Create docs-learning.md with:
-```markdown
+```yaml
 ## Problems & Solutions
 - Problem 1: [Issue] → [How I fixed it]
 - Problem 2: [Issue] → [How I fixed it]
 - Problem 3: [Issue] → [How I fixed it]
 ```
+
+---
+
+## **Start the vagrant file**
+
+- use a ready script in vagrant/ to check if need any incompatibility on vagrant setup
+
+```bash
+# start
+./start-server.sh
+# in manual: you need follow step by step
+
+# stop
+./stop-server.sh
+````
+
+
+
+
+

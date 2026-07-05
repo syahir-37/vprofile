@@ -7,9 +7,9 @@ echo "=============================================="
 echo "        Update, install EPEL and wget"
 echo "=============================================="
 echo ""
-sudo dnf update -y
-sudo dnf install epel-release -y
-sudo dnf install wget -y
+sudo yum update -y
+sudo yum install epel-release -y
+sudo yum install wget -y
 
 echo ""
 echo "=============================================="
@@ -37,7 +37,7 @@ echo ""
 sudo bash -c 'echo "loopback_users = none" > /etc/rabbitmq/rabbitmq.conf'
 
 # Set user guest
-sudo rabbitmqctl add_user test test
+sudo rabbitmqctl add_user test test 2>/dev/null || echo "User exist"
 sudo rabbitmqctl set_user_tags test administrator
 sudo rabbitmqctl set_permissions -p / test ".*" ".*" ".*"
 sudo systemctl restart rabbitmq-server
@@ -62,3 +62,4 @@ echo "+++++++++++ rabbitmq-server status ++++++++++++"
 sudo systemctl status rabbitmq-server --no-pager
 sleep 3
 
+echo "########### FINISH SCRIPT ################"
