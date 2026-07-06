@@ -54,7 +54,7 @@ echo "       Create the Tomcat service and Start it"
 echo "====================================================="
 echo ""
 # Create service
-sudo bash -c "cat > /etc/systemd/system/tomcat.service << EOF
+sudo bash -c "cat > /etc/systemd/system/tomcat.service << 'EOF'
 [Unit]
 Description=Tomcat
 After=network.target
@@ -137,12 +137,14 @@ sudo systemctl stop tomcat
 sleep 10
 
 # Deploy artifact
-sudo rm -rf ${TOMCAT_HOME}/webapps/ROOT*
+sudo rm -rf ${TOMCAT_HOME}/webapps/ROOT
+sudo rm -rf ${TOMCAT_HOME}/webapps/ROOT.war
+sudo rm -rf ${TOMCAC_HOME}/webapps/*.war
 sudo cp target/vprofile-v2.war ${TOMCAT_HOME}/webapps/ROOT.war
 sudo chown -R tomcat.tomcat ${TOMCAT_HOME}/webapps
 
 # Start tomcat
-sudo systemctl start tomcat
+sudo systemctl enable --now tomcat
 sleep 20
 
 # Clean up Downloads
@@ -155,4 +157,4 @@ echo "        Deployment Complete!"
 echo "============================================"
 echo ""
 echo "Application deployed successfully!"
-echo "Access it at: http://$(hostname -I | awk '{print $1}'):8080"
+echo "Access it at: http://$(hostname -I | awk '{print $2}'):8080"

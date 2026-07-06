@@ -44,22 +44,16 @@ sudo dnf install epel-release -y
 # 2. Install memcached
 sudo dnf install memcached -y
 
-# 3. Start and enable the service
-sudo systemctl start memcached 
+# 3. Edit broadcast IP and IPv6 to IPv4 0.0.0.0 on /etc/sysconfig/memcached 
+sudo sed -i 's/-l 127.0.0.1/-l 0.0.0.0/g' /etc/sysconfig/memcached
+
+# 4. Start and enable the service
+sudo systemctl restart memcached 
 sudo systemctl enable memcached
 sudo systemctl status memcached
 ```
 
-**5. Edit the _sysconfig_ file**
-```bash
-# 1. Edit IPv6 to IPv4 0.0.0.0 on /etc/sysconfig/memcached 
-sudo sed -i 's/127.0.0.1/0.0.0.0/g' /etc/sysconfig/memcached
-
-# 2. Restart the memcache service
-sudo systemctl restart memcached
-```
-
-**6. Starting the firewall and allowing the port 11211 to access memcache**
+**5. Starting the firewall and allowing the port 11211 to access memcache**
 ```bash
 sudo systemctl start firewalld
 sudo systemctl enable firewalld
@@ -67,5 +61,5 @@ sudo firewall-cmd --add-port=11211/tcp --permanent
 sudo firewall-cmd --add-port=11111/udp --permanent
 sudo firewall-cmd --reload
 sudo firewall-cmd --list-ports
-sudo memcached -p 11211 -U 11111 -u memcached -d
+sudo systemctl status memcached
 ```

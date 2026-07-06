@@ -41,7 +41,7 @@ sudo dnf update -y
 sudo dnf install epel-release -y
 ```
 
-**5. Install Maria DB Package**
+**5. Install Maria DB And Git**
 ```bash
 sudo dnf install git mariadb-server -y
 ```
@@ -62,7 +62,7 @@ sudo mysql_secure_installation
 ```yaml
 1. Enter current password for root: Just press Enter (no password yet)
 2. Switch to unix_socket authentication?: Type n (No)
-3. Change the root password?: Type Y and set a strong password
+3. Change the root password?: Type Y and password: admin123
 4. Remove anonymous users?: Type Y
 5. Disallow root login remotely?: Type n (No)
 6. Remove test database and access to it?: Type Y
@@ -73,6 +73,7 @@ sudo mysql_secure_installation
 ```bash
 sudo mysql -u root -p           
 # Enter password: admin123 
+# after password you will prompt to mariadb prompt, run the commands bellow.
 ```
 
 **Then run these SQL commands:**
@@ -95,7 +96,7 @@ FLUSH PRIVILEGES;
 SHOW DATABASES;
 SELECT User, Host FROM mysql.user WHERE User='admin';
 
-EXIT;
+EXIT
 ```
 
 **9. Download Source code & Initialize Database.**
@@ -106,7 +107,7 @@ git clone https://github.com/syahir-37/vprofile.git
 cd vprofile
 
 # Check if db_backup.sql exists
-ls -la src/main/resources/db_backup.sql
+ls -la src/main/resources/ | grep db_*
 
 # Restore database
 sudo mysql -u root -padmin123 accounts < src/main/resources/db_backup.sql

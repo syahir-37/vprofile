@@ -85,6 +85,7 @@ After=network.target
 [Service]
 User=tomcat
 Group=tomcat
+Type=simple
 WorkingDirectory=/usr/local/tomcat
 Environment=JAVA_HOME=/usr/lib/jvm/jre
 Environment=CATALINA_PID=/var/tomcat/%i/run/tomcat.pid
@@ -93,38 +94,11 @@ Environment=CATALINE_BASE=/usr/local/tomcat
 ExecStart=/usr/local/tomcat/bin/catalina.sh run
 ExecStop=/usr/local/tomcat/bin/shutdown.sh
 Restart=on-failure
-[Install]
-WantedBy=multi-user.target
-```
-
-<<<<<<< HEAD
-**Optional**
-```ini
-[Unit]
-Description=Tomcat Server
-After=network.target
-
-[Service]
-Type=forking
-User=tomcat
-Group=tomcat
-WorkingDirectory=/usr/local/tomcat
-Environment="JAVA_HOME=/usr/lib/jvm/java-17-openjdk-17.0.19.0.10-2.el9_7.x86_64"
-Environment="CATALINA_PID=/usr/local/tomcat/temp/tomcat.pid"
-Environment="CATALINA_HOME=/usr/local/tomcat"
-Environment="CATALINA_BASE=/usr/local/tomcat"
-ExecStart=/usr/local/tomcat/bin/startup.sh
-ExecStop=/usr/local/tomcat/bin/shutdown.sh
-RestartSec=10
-Restart=on-failure
-TimeoutSec=300
 
 [Install]
 WantedBy=multi-user.target
 ```
 
-=======
->>>>>>> fce31f84a81fdc618fbe7ee49c2fe819ffe4c658
 ```bash
 # 3. Reload systemd file
 sudo systemctl daemon-reload
@@ -185,7 +159,7 @@ cd /tmp/
 sudo wget https://archive.apache.org/dist/maven/maven-3/3.9.9/binaries/apache-maven-3.9.9-bin.zip
 
 # 3. Extract and install
-sudo unzip apache-maven-3.9.9-bin.zip
+sudo unzip apache-maven-3.9.9-bin.zip 
 sudo cp -r apache-maven-3.9.9 /usr/local/maven3.9
 
 # 4. Set Maven environment (optional but recommended)
@@ -199,7 +173,7 @@ source /etc/profile.d/maven.sh
 **3. Build and Deploy Application**
 ```bash
 # 1. Download Source code
-git clone -b local https://github.com/syahir-37/vprofile.git
+git clone https://github.com/syahir-37/vprofile.git
 
 # 2. Update configuration
 cd vprofile
@@ -207,19 +181,26 @@ vim src/main/resources/application.properties
 # Update file with backend server details (mysql, rabbitmq, memcached, etc.)
 
 # 3. Build code (repackage the app)
-/usr/local/maven3.9/bin/mvn install
+/usr/local/maven3.9/bin/mvn clean install
 
 # 4. Deploy artifact
 sudo systemctl stop tomcat
-sudo rm -rf /usr/local/tomcat/webapps/ROOT*
+sudo rm -rf /usr/local/tomcat/webapps/ROOT
+sudo rm -rf /usr/local/tomcat/webapps/ROOT.war
+sudo rm -rf /usr/local/tomcat/webapps/*.war
 sudo cp target/vprofile-v2.war /usr/local/tomcat/webapps/ROOT.war
 sudo chown -R tomcat.tomcat /usr/local/tomcat/webapps
-sudo systemctl start tomcat
+sudo systemctl enable --now tomcat
 
 # 5. Verify deployment
 sudo systemctl status tomcat
 curl http://localhost:8080
 ```
+
+>**NOTE:**
+> - if you cant delete the the `ROOT` file and the other, that mean process stil running the service and prevent from deleting the files.
+> - Stop the process `sudo systemctl stop tocmat`, then repeat the `rm -rf /usr/local/tomcat` commands.  
+
 
 **4. Cleanup**
 ```bash
