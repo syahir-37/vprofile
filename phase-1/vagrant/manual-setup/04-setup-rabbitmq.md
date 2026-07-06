@@ -57,7 +57,8 @@ sudo systemctl status rabbitmq-server
 # 2. Check version
 sudo rabbitmqctl version
 
-# 3. Enable management plugin 
+# OPTIONAL:
+# Enable management plugin 
 sudo rabbitmq-plugins enable rabbitmq_management
 ```
 
@@ -66,19 +67,16 @@ sudo rabbitmq-plugins enable rabbitmq_management
 # 1. Configure RabbitMQ to allow guest access from anywhere (or disable loopback check)
 sudo bash -c 'echo "loopback_users = none" > /etc/rabbitmq/rabbitmq.conf'
 
-# 2. Restart to apply config
-sudo systemctl restart rabbitmq-server
-
-# 3. Create user
+# 2. Create user
 sudo rabbitmqctl add_user test test
 
-# 4. Set admin tag
+# 3. Set admin tag
 sudo rabbitmqctl set_user_tags test administrator
 
-# 5. Set permissions
+# 4. Set permissions
 sudo rabbitmqctl set_permissions -p / test ".*" ".*" ".*"
 
-# 6. Final restart (optional, usually not needed after permissions)
+# 5. Restart to apply config
 sudo systemctl restart rabbitmq-server
 ```
 
@@ -91,7 +89,7 @@ sudo firewall-cmd --reload
 sudo firewall-cmd --list-ports 
 sudo systemctl status rabbitmq-server
 
-# optional:
+# OPTIONAL:
 # add after sudo firewall-cmd --add section - for UI management rabbitmq
 sudo firewall-cmd --add-port=15672/tcp --permanent
 ```
