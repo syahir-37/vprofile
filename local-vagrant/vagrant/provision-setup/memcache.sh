@@ -15,6 +15,7 @@ echo "===================================================="
 echo "       Configure to listen on all interfaces"
 echo "===================================================="
 echo ""
+
 sudo sed -i 's/-l 127.0.0.1,::1/-l 0.0.0.0/g' /etc/sysconfig/memcached
 
 echo ""
