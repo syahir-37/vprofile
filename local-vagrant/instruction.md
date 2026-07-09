@@ -88,7 +88,18 @@ git checkout -b phase-1
 ./stop-server.sh
 ````
 
+- testing the java web app in the local browser: http://web01
 
+```text
+User: admin_vp
+password: admin_vp
+```
 
+- if you want to do installation again, reset the ~/.vagrant.d/ folder using script
+
+```bash
+# reset vagrant config file
+./reset-vagrant.sh
+```
 
 
