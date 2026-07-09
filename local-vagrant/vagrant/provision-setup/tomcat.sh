@@ -155,6 +155,4 @@ echo ""
 echo "============================================"
 echo "        Deployment Complete!"
 echo "============================================"
-echo ""
-echo "Application deployed successfully!"
-echo "Access it at: http://$(hostname -I | awk '{print $2}'):8080"
+

@@ -2,7 +2,7 @@
 
 ## **ABOUT**
 
-In Phase-1, you'll learn to set up a Java web application using multi-tier architecture. You'll do everything manually first, then automate it with provisioning scripts.
+In local-vagrant directory, we will learn to set up a Java Multi-Tier Web Application. We will do everything manually first, then automate it with provisioning scripts.
 
 **Repository structure:**
 | Directory | What It's For |
@@ -56,7 +56,7 @@ git checkout -b phase-1
 ## **LEARNING INSTRUCTION**
 
 **1. Manual Setup**
-- Follow setup files in phase-1/vagrant/manual-setup/ step by step
+- Follow setup files in local-vagrant/vagrant/manual-setup/ step by step
 - Verify all setup files work with current VM versions
 
 **2. Provisioning**
@@ -88,7 +88,18 @@ git checkout -b phase-1
 ./stop-server.sh
 ````
 
+- testing the java web app in the local browser: http://web01
 
+```text
+User: admin_vp
+password: admin_vp
+```
 
+- if you want to do installation again, reset the ~/.vagrant.d/ folder using script
+
+```bash
+# reset vagrant config file
+./reset-vagrant.sh
+```
 
 
