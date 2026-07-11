@@ -1,3 +1,8 @@
+# About project:
+- this is java web app with multi tier server setup on local environment using vagrant and docker.
+- follow the instruction on `local-server/instruction.md` file to setup the server.
+- update the files in according your setup and versioning of the tech stack.
+
 # Prerequisites
 - JDK 17 or 21
 - Maven 3.9
@@ -22,8 +27,4 @@ sql dump file:
 - db_backup.sql file is a mysql dump file.we have to import this dump to mysql db server
 - > mysql -u <user_name> -p accounts < db_backup.sql
 
-# project structure:
 
-- this is multi tier server setup on local environment using vagrant and docker.
-- follow the instruction on `local-server/instruction.md` file to setup the server.
-- update the files in according your setup and versioning of the tech stack.
