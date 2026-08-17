@@ -1,16 +1,14 @@
 # About project:
-- This is Java web app with microservice setup architectures
-- The setup build for learn devops on differents stages and deployments
-- the structure branches on github for this project follow the differents stages and deployments
+- This is Java web app with microservices setup architectures.
+- The setup build for devops testing. Setup CICD, deploy local and cloud, are real world application design.
+- the structure branches on github for this project follow the different stages and deployments.
 
 **The Project Branches on Github**
 | Bil. | **Branch Name** | **Description** |
 |------|-----------------|-----------------|
-| 1. | main | origin resource for project (default file), anything tweak or projectsd dependentcies will be do under another branch. | 
+| 1. | main | origin resource for project (default file), anything tweak or project dependencies will be do under another branch. | 
 | 2. | localDeployment | manually and provisioning deploying the Java web app on local server using Vagrant and Docker. |
-| 3. | awsLiftAndShift | take priviouse project to deploy on AWS cloud service with |
-
-
+| 3. | awsLiftAndShift | take previous project to deploy on AWS cloud service with |
 
 # Prerequisites
 - JDK 17 or 21
