@@ -61,16 +61,15 @@ git push -u origin localDeployment
 
 ---
 
-## **PROCESS SETUP**
+## **SETUP NOTE**
 
 **1. Manual Setup**
-- Read the files from 01-setup to the last-file before using script
-- Verify all setup files work with current VM versions
+- Read the files from 01-setup to the last-file before using start-server.sh script.
+- Verify all setup files work with current VM versions.
 
 **2. Provisioning**
-- Complete manual setup first
-- Create or update start and stop script for provision server
-- Create or update previouse provision script installation based on your manual steps
+- Complete manual setup first to make sure its working properly in curret local machine.
+- Create or update previouse provision script installation based on your manual setup.
 
 **3. Documentation**
 - Create troubleshooting.md on local-Deployment/
