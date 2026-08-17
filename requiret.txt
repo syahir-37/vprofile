@@ -1,0 +1,64 @@
+
+
+## requiretment.md
+
+1. about:
+- transfer local server to cloud server aws
+- files structure description
+
+This project outlines a classic three-tier architecture on AWS, which is a standard and reliable pattern for deploying scalable web applications . This structure separates concerns into presentation (web), application, and data tiers, making it more secure and manageable.
+
+
+2. requiretment
+- aws account: free tier
+- local development:
+    - install aws cli
+    - setup aws key pair with aws cli
+    -
+- networking
+    - gateway
+    - protocol
+    - server networking
+    - server proxy
+
+
+## 3. AWS Structure Project
+
+### Security Groups
+
+#### Load Balancer Security Group
+- **Inbound**: Port 80 (HTTP) and 443 (HTTPS) from 0.0.0.0/0 (internet)
+- **Outbound**: All traffic
+- **Purpose**: Accept user requests and proxy to App Server
+
+#### App Server Security Group
+- **Inbound**:
+  - Port 80 and 8080 (Tomcat) from Load Balancer Security Group
+  - Port 22 (SSH) from admin IP
+- **Outbound**: All traffic
+- **Purpose**: Host Tomcat server, handle proxy traffic, communicate with Backend Server
+- **Two-way communication with**: Load Balancer (Port 80/443) and Backend Server (Port 3306, 11211, 5672)
+
+#### Backend Server Security Group
+- **Inbound**:
+  - Port 3306 (MariaDB) from App Server Security Group
+  - Port 11211 (Memcached) from App Server Security Group
+  - Port 5672 (RabbitMQ) from App Server Security Group
+  - Port 22 (SSH) from admin IP
+- **Outbound**: All traffic
+- **Purpose**: Host microservices (MariaDB, Memcached, RabbitMQ)
+- **All backend services can communicate with each other internally**
+
+### Deployment Placement
+- **Load Balancer**: Public Subnet
+- **App Server**: Private Subnet
+- **Backend Server**: Private Subnet
+
+### Communication Summary
+- Internet → Load Balancer: Port 80/443
+- Load Balancer → App Server: Port 80/8080
+- App Server → MariaDB: Port 3306
+- App Server → Memcached: Port 11211
+- App Server → RabbitMQ: Port 5672
+- Backend services ↔ each other: Internal communication
+
