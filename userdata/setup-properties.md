@@ -1,9 +1,10 @@
 
 
 ## **Table of Contents**
-1. Create security Groups and key pair (login)
+1. Create Security Groups and Key Pair (login)
 2. Create EC2 intances
-3.  
+3. Create Route 53 - DNS
+4. 
 
 ---
 
@@ -112,12 +113,13 @@ Private Key File Format: .pem
 
 ## **2. Create EC2 Instances**
 
-- Go to AWS dashboad the search: EC2 > Instances > Launch an instance
+- Go to AWS dashboad the search: EC2 > Instances > Launch an instance.
 - Create instances:
   1. db01 
   2. mem01 
   3. rmq01 
   4. app01
+- Test and make sure the instances works properly.
   
 ```yml
 # db01
@@ -191,5 +193,13 @@ Network setting:
   firewall (security group): vprofile-App-SG # select existing security group
 Advance detail: # scoll to the bottom 
    user data (optional): # then paste the script tomcat.sh
+```
 
+Test the Instances:
+```bash 
+cd ~
+# amazon os 
+ssh -i Downloads/vprofile-prod-key.pem ec2-user@Public_IP
+# ubuntu os
+ssh -i Downloads/vprofile-prod-key.pem ubuntu@Public_IP
 ```

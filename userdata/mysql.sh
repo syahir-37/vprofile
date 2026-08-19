@@ -1,41 +1,27 @@
 #!/bin/bash
 
-# variable:
-## database
 DATABASE_PASS='admin123'
-DB_BACKUP="/tmp/vprofile/src/main/resources/db_backup.sql"
-## git repo
-LINK_CLONE="https://github.com/syahir-37/vprofile.git"
-LINK_BRANCH="main"
-#######################################################################
 
-# update & and install tools
+# install update and tools
 sudo dnf update -y
 sudo dnf install git zip unzip -y
 sudo dnf install mariadb105-server -y
 
-# starting & enabling mariadb service
+# starting & enabling mariadb-server
 sudo systemctl start mariadb
 sudo systemctl enable mariadb
-
-# git repo download
 cd /tmp/
-git clone -b $LINK_BRANCH $LINK_CLONE
+git clone -b main https://github.com/syahir-37/vprofile.git
 
-# setup admin, password and delete all other users
+# restore the dump file for the application
 sudo mysqladmin -u root password "$DATABASE_PASS"
 sudo mysql -u root -p"$DATABASE_PASS" -e "ALTER USER 'root'@'localhost' IDENTIFIED BY '$DATABASE_PASS'"
 sudo mysql -u root -p"$DATABASE_PASS" -e "DELETE FROM mysql.user WHERE User='root' AND Host NOT IN ('localhost', '127.0.0.1', '::1')"
 sudo mysql -u root -p"$DATABASE_PASS" -e "DELETE FROM mysql.user WHERE User=''"
 sudo mysql -u root -p"$DATABASE_PASS" -e "DELETE FROM mysql.db WHERE Db='test' OR Db='test\_%'"
 sudo mysql -u root -p"$DATABASE_PASS" -e "FLUSH PRIVILEGES"
-
-# Create User "accounts"
-sudo mysql -u root -p"$DATABASE_PASS" -e "CREATE DATABASE accounts"
-sudo mysql -u root -p"$DATABASE_PASS" -e "GRANT ALL PRIVILEGES ON accounts.* TO 'admin'@'localhost' IDENTIFIED BY 'user321'"
-sudo mysql -u root -p"$DATABASE_PASS" -e "GRANT ALL PRIVILEGES ON accounts.* TO 'admin'@'%' IDENTIFIED BY 'user321'"
-sudo mysql -u root -p"$DATABASE_PASS" accounts < "$DB_BACKUP"
+sudo mysql -u root -p"$DATABASE_PASS" -e "create database accounts"
+sudo mysql -u root -p"$DATABASE_PASS" -e "grant all privileges on accounts.* TO 'admin'@'localhost' identified by 'admin123'"
+sudo mysql -u root -p"$DATABASE_PASS" -e "grant all privileges on accounts.* TO 'admin'@'%' identified by 'admin123'"
+sudo mysql -u root -p"$DATABASE_PASS" accounts < /tmp/vprofile/src/main/resources/db_backup.sql
 sudo mysql -u root -p"$DATABASE_PASS" -e "FLUSH PRIVILEGES"
-
-# Restart mariadb
-sudo systemctl restart mariadb
