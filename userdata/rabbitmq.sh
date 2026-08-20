@@ -31,3 +31,4 @@ rabbitmqctl set_permissions -p / test ".*" ".*" ".*"
 
 # restart the service after change the config file
 sudo systemctl restart rabbitmq-server
+sudo systemctl status rabbitmq-server
